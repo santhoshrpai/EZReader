@@ -8,7 +8,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="BootstrapFolder/Scripts/jquery-1.9.1.js"></script>
     <script src="BootstrapFolder/Scripts/bootstrap.js"></script>
-    <link href="BootstrapFolder/Bootstrap/bootstrap.css" rel="stylesheet" />
+     <link href="BootstrapFolder/Bootstrap/bootstrap.css" rel="stylesheet" />
     <script>
         $(function () {
             $("#result").bind('mouseup', function (e) {
@@ -43,6 +43,25 @@
             var audio = new Audio(url);
             audio.play();
         });
+
+        function showMeaning(text) {
+            $.ajax({
+                type: "GET",
+                url: "AjaxEngine.aspx?word=" + text,
+                success: function (msg) {
+                    var audio = $(msg).find("AudioUrl").text();
+                    var sentence = $(msg).find("SentenceUsage").text();
+                    var meaning = $(msg).find("Meaning").text();
+                    document.getElementById("audio").style.visibility = 'visible';
+                    document.getElementById("meaning").style.visibility = 'visible';
+                    document.getElementById("usage").style.visibility = 'visible';
+
+                    document.getElementById("usage").innerHTML = sentence;
+                    document.getElementById("meaning").innerHTML = meaning;
+                    document.getElementById("audio").textContent = audio;
+                }
+            });
+        }
 
     </script>
 </head>
@@ -96,6 +115,18 @@
                 </asp:HyperLink>
                 <br />
                 <asp:Label ID="usage" runat="server" Text="Usage in Sentences:" style="visibility:hidden"></asp:Label>
+            </div>
+        </div>
+    <br /><br />
+        <div style="float:right; width: 30%;" >
+            <div class="panel panel-primary">
+            <div class="panel-heading">Memory test</div>
+            <div class="panel-body">
+            </div>
+                <asp:Label ID="lblMemoryMessage" runat="server" Text="Hey you have come across these word(s). Do you remember the meanings? <br> " Visible="false"></asp:Label>
+                <br />
+                <asp:Label ID="lblText" runat="server" Text=""></asp:Label>
+                <br />                
             </div>
         </div>
         

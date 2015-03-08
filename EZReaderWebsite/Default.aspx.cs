@@ -74,11 +74,25 @@ public partial class _Default : System.Web.UI.Page
         reader = (PdfReader)Session["document"];
         data = PdfTextExtractor.GetTextFromPage(reader, currentPage, new LocationTextExtractionStrategy());
         lblTotalPages.Text = Session["noOfPages"].ToString();
+        lblText.Text = "";
+        lblMemoryMessage.Visible = false;
 
         result.InnerText = "";
         data = data.Replace("\n", "<br>");
         //string[] keywords = { "Application", "verify", "Software" };
-        string[] keywords = DataLayer.GetKeywords(1, Server.MapPath("\\EZReader.accdb"));
+        DictionaryModel[] output = DataLayer.GetKeywords(1, Server.MapPath("\\EZReader.accdb"));
+        string[] keywords = null;
+
+        if (output != null)
+        {
+            keywords = new string[output.Length];
+
+            for (int i = 0; i < output.Length; i++)
+            {
+                keywords[i] = output[i].Word;
+            }
+        }
+
         lblCurrentPage.Text = currentPage.ToString();
         if (keywords != null)
         {
@@ -94,21 +108,37 @@ public partial class _Default : System.Web.UI.Page
             if (isKeyWordPresent)
             {
                 string[] text = data.Split(' ');
+                int pos=1;
+                string str = string.Empty;
                 for (int i = 0; i < text.Length; i++)
                 {
                     if (keywords.Contains(text[i].Replace("<br>", "").ToLower()))
                     {
-                        result.InnerHtml += "<a href=\"#\">" + text[i] + "</a> ";
+                        for (int j = 0; j < output.Length; j++)
+                        {
+                            if (output[j].Word.Equals(text[i].Replace("<br>", "").ToLower()))
+                            {
+                                result.InnerHtml += " <b> " + text[i] + " </b> ";
+                                lblMemoryMessage.Visible = true;
+                                lblText.Text += "<a style=\"cursor:pointer\" onclick=\"showMeaning('"+output[j].Word+"')\"> <b>"+ output[j].Word + " </b> </a> <br>";
+                                pos++;
+                                break;
+                            }
+                        }
+                        
                     }
                     else
                     {
                         result.InnerHtml += text[i] + " ";
                     }
                 }
+                //result.InnerHtml += str;
 
             }
             else
             {
+                lblMemoryMessage.Visible = false;
+                lblText.Text = "";
                 result.InnerHtml = data;
             }
         }

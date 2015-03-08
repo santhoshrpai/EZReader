@@ -13,24 +13,28 @@ using System.Web;
 /// </summary>
 public class DataLayer
 {
-	public static void AddKeyword(string keyword, int id,string path)
+	public static void AddKeyword(string keyword, string meaning, int id,string path)
     {
-        OleDbConnection conn = GetConnection(path);
-        string strAccessInsert = "insert into tbl_Keywords(Keyword,UserID) values(@keyword,@id)";
-        OleDbCommand command = conn.CreateCommand();
-        command.Parameters.AddWithValue("keyword", keyword.ToLower()).DbType = DbType.String;
-        command.Parameters.AddWithValue("id", id).DbType = DbType.Int32;
-        command.CommandText = strAccessInsert;
-        command.Connection = conn;
-        conn.Open();
-        command.ExecuteNonQuery();
-        conn.Close();
+        if (!string.IsNullOrEmpty(keyword))
+        {
+            OleDbConnection conn = GetConnection(path);
+            string strAccessInsert = "insert into tbl_Keywords(Keyword,UserID,Meaning) values(@keyword,@id,@meaning)";
+            OleDbCommand command = conn.CreateCommand();
+            command.Parameters.AddWithValue("keyword", keyword.ToLower()).DbType = DbType.String;
+            command.Parameters.AddWithValue("id", id).DbType = DbType.Int32;
+            command.Parameters.AddWithValue("meaning", meaning).DbType = DbType.String;
+            command.CommandText = strAccessInsert;
+            command.Connection = conn;
+            conn.Open();
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
     }
 
-    public static string[] GetKeywords(int id, string path)
+    public static DictionaryModel[] GetKeywords(int id, string path)
     {
         OleDbConnection conn = GetConnection(path);
-        string strAccess = "select keyword from tbl_Keywords where UserID=@id";
+        string strAccess = "select keyword,meaning from tbl_Keywords where UserID=@id";
         OleDbCommand command = conn.CreateCommand();
         command.Parameters.AddWithValue("id", id).DbType = DbType.Int32;
         command.CommandText = strAccess;
@@ -43,11 +47,11 @@ public class DataLayer
             cmd.CommandText = "select count(*) from  tbl_Keywords where UserID=@uid";
             cmd.Parameters.AddWithValue("uid", id).DbType = DbType.Int32;
             int count = (int)cmd.ExecuteScalar();
-            string[] result = new string[count];
+            DictionaryModel[] result = new DictionaryModel[count];
             int i = 0;
             while (reader.Read())
             {
-                result[i++] = reader.GetString(0);
+                result[i++] = new DictionaryModel() { Meaning = reader.GetString(1), Word = reader.GetString(0) };                
             }
             conn.Close();
             return result;

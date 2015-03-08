@@ -30,6 +30,14 @@ public class DictionaryModel
         set { sentenceUsage = value; }
     }
 
+    private string word;
+
+    public string Word
+    {
+        get { return word; }
+        set { word = value; }
+    }
+
 
 	public DictionaryModel()
 	{

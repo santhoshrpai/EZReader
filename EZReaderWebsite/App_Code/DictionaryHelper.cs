@@ -46,7 +46,7 @@ public class DictionaryHelper
     }
 
     
-    public DictionaryModel parseDictionaryResult(string xml,string usageXml)
+    public DictionaryModel parseDictionaryResult(string xml,string usageXml,string word)
     {
         try
         {
@@ -58,7 +58,8 @@ public class DictionaryHelper
             XmlNodeList parentNode2 = xmlDoc.GetElementsByTagName("entry/sound");
             string item2 = xmlDoc.SelectSingleNode("//entry/sound/wav").InnerText;
             model.AudioUrl = "http://media.merriam-webster.com/soundc11/h/" + item2;
-            
+
+            model.Word = word;
 
             //Code for returning usage in a sentence.
 
