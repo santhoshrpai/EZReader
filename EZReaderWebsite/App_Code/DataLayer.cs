@@ -18,15 +18,23 @@ public class DataLayer
         if (!string.IsNullOrEmpty(keyword))
         {
             OleDbConnection conn = GetConnection(path);
-            string strAccessInsert = "insert into tbl_Keywords(Keyword,UserID,Meaning) values(@keyword,@id,@meaning)";
-            OleDbCommand command = conn.CreateCommand();
-            command.Parameters.AddWithValue("keyword", keyword.ToLower()).DbType = DbType.String;
-            command.Parameters.AddWithValue("id", id).DbType = DbType.Int32;
-            command.Parameters.AddWithValue("meaning", meaning).DbType = DbType.String;
-            command.CommandText = strAccessInsert;
-            command.Connection = conn;
+            OleDbCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "select count(*) from tbl_Keywords where Keyword=@key and UserID=@uid";
+            cmd.Parameters.AddWithValue("key", keyword.ToLower()).DbType = DbType.String;
+            cmd.Parameters.AddWithValue("uid", id).DbType = DbType.Int32;
             conn.Open();
-            command.ExecuteNonQuery();
+            int count = (int)cmd.ExecuteScalar();
+            if (count == 0)
+            {
+                string strAccessInsert = "insert into tbl_Keywords(Keyword,UserID,Meaning) values(@keyword,@id,@meaning)";
+                OleDbCommand command = conn.CreateCommand();
+                command.Parameters.AddWithValue("keyword", keyword.ToLower()).DbType = DbType.String;
+                command.Parameters.AddWithValue("id", id).DbType = DbType.Int32;
+                command.Parameters.AddWithValue("meaning", meaning).DbType = DbType.String;
+                command.CommandText = strAccessInsert;
+                command.Connection = conn;
+                command.ExecuteNonQuery();
+            }
             conn.Close();
         }
     }

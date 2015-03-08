@@ -22,45 +22,54 @@ public partial class _Default : System.Web.UI.Page
         {
             //load data from pdf file.
             Session["UserID"] = "1";
+            //string text = ExtractTextFromPdf(Server.MapPath("Oliver-Twist.pdf"));
+            reader = new PdfReader(Server.MapPath("Oliver-Twist.pdf"));
+            Session["document"] = reader;
+            Session["noOfPages"] = reader.NumberOfPages.ToString();
+            SetContent();
+            result.Style.Add("visibility", "visible");
+            result.Style.Add("overflow", "scroll");
+            pnlShowPage.Visible = true;
+            Panel1.Visible = true;
         }
     }
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        try
-        {
-            if (this.FileUpload1.HasFile)
-            {
-                PdfReader reader1 = (PdfReader)Session["document"];
-                string fileName = Server.MapPath(FileUpload1.FileName);
-                if (File.Exists(fileName))
-                {
-                    File.Delete(fileName);
-                }
-                FileUpload1.SaveAs(fileName);
+        //try
+        //{
+        //    if (this.FileUpload1.HasFile)
+        //    {
+        //        PdfReader reader1 = (PdfReader)Session["document"];
+        //        string fileName = Server.MapPath(FileUpload1.FileName);
+        //        if (File.Exists(fileName))
+        //        {
+        //            File.Delete(fileName);
+        //        }
+        //        FileUpload1.SaveAs(fileName);
 
-                string text = ExtractTextFromPdf(fileName);
-                reader = new PdfReader(fileName);
-                //Session["file"] = fileName;
-                Session["document"] = reader;
-                Session["noOfPages"] = reader.NumberOfPages.ToString();
-                SetContent();
-                result.Style.Add("visibility", "visible");
-                result.Style.Add("overflow", "scroll");
-                pnlShowPage.Visible = true;
-                Panel1.Visible = true;
-                result.InnerText = "";
-                //reader.Close();
-            }
-        }
-        catch (IOException exception)
-        {
-            Console.WriteLine(
-                "{0}: The write operation could not " +
-                "be performed because the specified " +
-                "part of the file is locked.",
-                exception.GetType().Name);
-        }
+        //        string text = ExtractTextFromPdf(fileName);
+        //        reader = new PdfReader(fileName);
+        //        //Session["file"] = fileName;
+        //        Session["document"] = reader;
+        //        Session["noOfPages"] = reader.NumberOfPages.ToString();
+        //        SetContent();
+        //        result.Style.Add("visibility", "visible");
+        //        result.Style.Add("overflow", "scroll");
+        //        pnlShowPage.Visible = true;
+        //        Panel1.Visible = true;
+                
+        //        //reader.Close();
+        //    }
+        //}
+        //catch (IOException exception)
+        //{
+        //    Console.WriteLine(
+        //        "{0}: The write operation could not " +
+        //        "be performed because the specified " +
+        //        "part of the file is locked.",
+        //        exception.GetType().Name);
+        //}
     }
 
     protected string ExtractTextFromPdf(string path)
@@ -72,6 +81,7 @@ public partial class _Default : System.Web.UI.Page
 
     private void SetContent()
     {
+        result.InnerText = "";
         reader = (PdfReader)Session["document"];
         data = PdfTextExtractor.GetTextFromPage(reader, currentPage, new LocationTextExtractionStrategy());
         lblTotalPages.Text = Session["noOfPages"].ToString();

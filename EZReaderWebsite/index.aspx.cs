@@ -12,9 +12,9 @@ public partial class index : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        String filepath = Server.MapPath("SamplePDFs/");
-        string[] fileEntries = Directory.GetFiles(filepath);
-        Console.Write(fileEntries);
+        //String filepath = Server.MapPath("SamplePDFs/");
+        //string[] fileEntries = Directory.GetFiles(filepath);
+        //Console.Write(fileEntries);
         //Response.Write()
     }
     protected void Button1_Click(object sender, EventArgs e)

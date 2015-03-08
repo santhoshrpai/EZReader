@@ -8,7 +8,7 @@
     <script src="BootstrapFolder/Scripts/bootstrap.js"></script>
     <link href="BootstrapFolder/Bootstrap/bootstrap.css" rel="stylesheet" />    
 <head runat="server">
-    <title></title>
+    <title>EZReader</title>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -105,7 +105,7 @@
                     <div class="panel-body">
                  <div class="row">
                  <div class="col-xs-6 col-md-3">
-                 <a href="#" class="thumbnail" style="background-color:#eee ; max-height:250px">
+                 <a href="Default.aspx" class="thumbnail" style="background-color:#eee ; max-height:250px">
                     <img src="Image/OliverTwist.png" width="120" height="200" class="img-rounded" />
                    <h3>Oliver Twist</h3>
                   </a>
@@ -113,21 +113,21 @@
                  
 
                  <div class="col-xs-6 col-md-3">
-                 <a href="#" class="thumbnail" style="background-color:#eee ; max-height:250px">
+                 <a href="Default.aspx" class="thumbnail" style="background-color:#eee ; max-height:250px">
                     <img src="Image/30597.JPG" width="120" height="200" class="img-rounded" />
                    <h3 style="text-align:center">Victor Hugo</h3>
                   </a>
                  </div>    
 
                  <div class="col-xs-6 col-md-3">
-                 <a href="#" class="thumbnail" style="background-color:#eee ; max-height:250px">
+                 <a href="Default.aspx" class="thumbnail" style="background-color:#eee ; max-height:250px">
                     <img src="Image/AStudyInScarlet.jpg" width="120" height="200" class="img-rounded" />
                    <h3 style="text-align:center">A Study In Scarlet</h3>
                   </a>
                  </div>    
 
                   <div class="col-xs-6 col-md-3">
-                 <a href="#" class="thumbnail" style="background-color:#eee ; max-height:250px">
+                 <a href="Default.aspx" class="thumbnail" style="background-color:#eee ; max-height:250px">
                     <img src="Image/tale-of-two-cities-book-cover.jpg" width="120" height="200" class="img-rounded" />
                    <h3 style="text-align:center">A Tale of Two Citie</h3>
                   </a>
@@ -137,7 +137,7 @@
 
                         <div class="row">
                              <div class="col-xs-6 col-md-3">
-                     <a href="#" class="thumbnail" style="background-color:#eee ; max-height:250px">
+                     <a href="Default.aspx" class="thumbnail" style="background-color:#eee ; max-height:250px">
                     <img src="Image/around-80days.jpg" width="120" height="200" class="img-rounded" />
                    <h3 style="text-align:center">Around the world in 80 days</h3>
                          </a>  

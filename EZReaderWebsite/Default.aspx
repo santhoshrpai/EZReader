@@ -70,15 +70,15 @@
         <div style="float: left; width: 70%;">
                 <form id="form1" runat="server">
                     <div class="panel panel-primary">
-                    <div class="panel-heading">Reader</div>
+                    <div class="panel-heading">Oliver Twist</div>
                     <div class="jumbotron">
-                                <div style="height: 69px; width: 231px">    
-                                <asp:FileUpload ID="FileUpload1" runat="server" />
+                                <%--<div style="height: 69px; width: 231px">    
+                                <asp:FileUpload ID="FileUpload1" runat="server" Visible="False" />
                                     <br />
-                                <asp:Button ID="Button1" runat="server" Text="Upload" OnClick="Button1_Click" />
-                                </div>
-                    <div class="panel-body" style="width:100%">
-                            <table style="text-align:center;width:100%;height:75%" border="1" >
+                                <asp:Button ID="Button1" runat="server" Text="Upload" OnClick="Button1_Click" Visible="False" />
+                                </div>--%>
+                    <div class="panel-body" style="width:100%;margin-left:100px;height:100%">
+                            <table style="text-align:center;width:70%;height:100%" border="0" >
                                 <tr>
                                     <td >
                                         <asp:Panel runat="server" ID="Panel1" Visible="false" HorizontalAlign="Center">
@@ -97,7 +97,7 @@
                                     <tr>
                                     <td>
                                      <!-- This div displays the content of the document -->
-                                    <div id="result" runat="server" style="text-align:left;border-color:black;border-style:outset;border-width:thin;height:400px;width:100%;vertical-align:central;visibility:hidden"/>
+                                    <div id="result" runat="server" style="text-align:left;margin-left:100px;border-color:black;border-style:outset;border-width:thin;height:460px;width:70%;vertical-align:central;visibility:hidden"/>
                                     <br />
                                     <asp:Panel runat="server" ID="pnlShowPage" Visible="false" HorizontalAlign="Center">
                                                                                 <asp:Button ID="btnFirst"  class="btn btn-primary" runat="server" Text="<<- First" OnClick="btnFirst_Click" /> &nbsp;
