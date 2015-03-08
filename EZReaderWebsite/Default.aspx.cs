@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using iTextSharp.text.pdf.parser;
 using iTextSharp.text.pdf;
 using System.IO;
+using System.Web.UI;
 
 public partial class _Default : System.Web.UI.Page
 {
@@ -76,7 +77,8 @@ public partial class _Default : System.Web.UI.Page
 
         result.InnerText = "";
         data = data.Replace("\n", "<br>");
-        string[] keywords = { "Application", "verify", "Software" };
+        //string[] keywords = { "Application", "verify", "Software" };
+        string[] keywords = DataLayer.GetKeywords(1, Server.MapPath("\\EZReader.accdb"));
         lblCurrentPage.Text = currentPage.ToString();
 
         bool isKeyWordPresent = false;
