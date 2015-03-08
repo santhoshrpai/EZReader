@@ -31,6 +31,9 @@
                             document.getElementById("meaning").style.visibility = 'visible';
                             document.getElementById("usage").style.visibility = 'visible';
 
+                            document.getElementById("Lblang").textContent = '';
+
+
                             document.getElementById("usage").innerHTML = '<b>Use in Sentence:</b>' + sentence;
                             document.getElementById("meaning").innerHTML = '<b><label style="font-size:50px;">' + data + '</label></b><br/><b>Meaning</b>' + meaning;
                             document.getElementById("audio").textContent = audio;
