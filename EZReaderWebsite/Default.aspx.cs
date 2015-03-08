@@ -48,6 +48,7 @@ public partial class _Default : System.Web.UI.Page
                 result.Style.Add("visibility", "visible");
                 result.Style.Add("overflow", "scroll");
                 pnlShowPage.Visible = true;
+                Panel1.Visible = true;
                 result.InnerText = "";
                 //reader.Close();
             }
@@ -74,6 +75,7 @@ public partial class _Default : System.Web.UI.Page
         reader = (PdfReader)Session["document"];
         data = PdfTextExtractor.GetTextFromPage(reader, currentPage, new LocationTextExtractionStrategy());
         lblTotalPages.Text = Session["noOfPages"].ToString();
+        Label4.Text = lblTotalPages.Text;
         lblText.Text = "";
         lblMemoryMessage.Visible = false;
 
@@ -94,6 +96,7 @@ public partial class _Default : System.Web.UI.Page
         }
 
         lblCurrentPage.Text = currentPage.ToString();
+        Label2.Text = lblCurrentPage.Text;
         if (keywords != null)
         {
             bool isKeyWordPresent = false;
@@ -120,9 +123,12 @@ public partial class _Default : System.Web.UI.Page
                             {
                                 result.InnerHtml += " <b> " + text[i] + " </b> ";
                                 lblMemoryMessage.Visible = true;
-                                lblText.Text += "<a style=\"cursor:pointer\" onclick=\"showMeaning('"+output[j].Word+"')\"> <b>"+ output[j].Word + " </b> </a> <br>";
-                                pos++;
-                                break;
+                                if (!lblText.Text.Contains(text[i]))
+                                {
+                                    lblText.Text += "<a style=\"cursor:pointer\" onclick=\"showMeaning('" + output[j].Word + "')\"> <b>" + output[j].Word + " </b> </a> <br>";
+                                    pos++;
+                                    break;
+                                }
                             }
                         }
                         

@@ -77,12 +77,27 @@
                                     <br />
                                 <asp:Button ID="Button1" runat="server" Text="Upload" OnClick="Button1_Click" />
                                 </div>
-                    <div class="panel-body">
-                            <table style="text-align:center">
+                    <div class="panel-body" style="width:100%">
+                            <table style="text-align:center;width:100%;height:75%" border="1" >
                                 <tr>
+                                    <td >
+                                        <asp:Panel runat="server" ID="Panel1" Visible="false" HorizontalAlign="Center">
+                                                                                <asp:Button ID="Button2"  class="btn btn-primary" runat="server" Text="<<- First" OnClick="btnFirst_Click" /> &nbsp;
+                                                                                <asp:Button ID="Button3"  class="btn btn-primary" runat="server" Text="<- Prev" OnClick="btnPrev_Click" /> &nbsp;
+                                            <asp:Label ID="Label1" runat="server" Text="Showing page "></asp:Label>
+                                            <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
+                                            <asp:Label ID="Label3" runat="server" Text=" of "></asp:Label>
+                                            <asp:Label ID="Label4" runat="server" Text=""></asp:Label> &nbsp;
+                                            <asp:Button ID="Button4"  class="btn btn-primary" runat="server" Text="Next ->" OnClick="btnNext_Click" /> &nbsp;
+                                            <asp:Button ID="Button5"  class="btn btn-primary" runat="server" Text="Last -->" OnClick="btnLast_Click" />
+                                    </asp:Panel>
+                                        <br />
+                                    </td>
+                                    </tr>
+                                    <tr>
                                     <td>
                                      <!-- This div displays the content of the document -->
-                                    <div id="result" runat="server" style="text-align:left;border-color:black;border-style:outset;border-width:thin;height:680px;width:680px;vertical-align:central;visibility:hidden"/>
+                                    <div id="result" runat="server" style="text-align:left;border-color:black;border-style:outset;border-width:thin;height:400px;width:100%;vertical-align:central;visibility:hidden"/>
                                     <br />
                                     <asp:Panel runat="server" ID="pnlShowPage" Visible="false" HorizontalAlign="Center">
                                                                                 <asp:Button ID="btnFirst"  class="btn btn-primary" runat="server" Text="<<- First" OnClick="btnFirst_Click" /> &nbsp;
