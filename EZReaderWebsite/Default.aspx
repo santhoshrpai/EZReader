@@ -13,14 +13,13 @@
         $(function () {
             $("#result").bind('mouseup', function (e) {
                 var selection;
-
                 if (window.getSelection) {
                     selection = window.getSelection();
                 } else if (document.selection) {
                     selection = document.selection.createRange();
                 }
-
                 selection.toString() !== '' && alert('"' + selection.toString() + '" was selected at ' + e.pageX + '/' + e.pageY);
+                $("inputText").value = selection.toString();
             });
         });
     </script>
@@ -32,17 +31,16 @@
                     <div class="panel panel-primary">
                     <div class="panel-heading">Reader</div>
                     <div class="jumbotron">
-                               <div>    
+                                <div>    
                                 <asp:FileUpload ID="FileUpload1" runat="server" />
-                                <br />
                                 <asp:Button ID="Button1" runat="server" Text="Upload" OnClick="Button1_Click" />
                                 </div>
                     <div class="panel-body">
-                            <table align="center">
+                            <table style="text-align:center">
                                 <tr>
                                     <td>
                                      <!-- This div displays the content of the document -->
-                                    <div id="result" runat="server" style="text-align:left;border-color:black;border-style:outset;border-width:thin;height:680px;vertical-align:central;visibility:hidden"/>
+                                    <div id="result" runat="server" style="text-align:left;border-color:black;border-style:outset;border-width:thin;height:680px;width:680px;vertical-align:central;visibility:hidden"/>
                                     <br />
                                     <asp:Panel runat="server" ID="pnlShowPage" Visible="false" HorizontalAlign="Center">
                                                                                 <asp:Button ID="btnFirst"  class="btn btn-primary" runat="server" Text="<<- First" OnClick="btnFirst_Click" /> &nbsp;
