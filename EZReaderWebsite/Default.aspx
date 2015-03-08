@@ -18,10 +18,32 @@
                 } else if (document.selection) {
                     selection = document.selection.createRange();
                 }
-                selection.toString() !== '' && alert('"' + selection.toString() + '" was selected at ' + e.pageX + '/' + e.pageY);
-                $("inputText").value = selection.toString();
+                var data = selection.toString();
+                $.ajax({
+                    type: "GET",
+                    url: "AjaxEngine.aspx?word=" + data,
+                    success: function (msg) {
+                        var audio = $(msg).find("AudioUrl").text();
+                        var sentence = $(msg).find("SentenceUsage").text();
+                        var meaning = $(msg).find("Meaning").text();
+                        document.getElementById("audio").style.visibility = 'visible';
+                        document.getElementById("meaning").style.visibility = 'visible';
+                        document.getElementById("usage").style.visibility = 'visible';
+
+                        document.getElementById("usage").innerHTML = sentence;
+                        document.getElementById("meaning").innerHTML = meaning;
+                        document.getElementById("audio").textContent = audio;
+                    }
+                });
             });
         });
+        $("#audio").click(function () {
+            var url = document.getElementById("audio").textContent;
+            alert(url);
+            var audio = new Audio(url);
+            audio.play();
+        });
+
     </script>
 </head>
 <body style="font-family:Tahoma;text-align:center">
@@ -31,8 +53,9 @@
                     <div class="panel panel-primary">
                     <div class="panel-heading">Reader</div>
                     <div class="jumbotron">
-                                <div>    
+                                <div style="height: 69px; width: 231px">    
                                 <asp:FileUpload ID="FileUpload1" runat="server" />
+                                    <br />
                                 <asp:Button ID="Button1" runat="server" Text="Upload" OnClick="Button1_Click" />
                                 </div>
                     <div class="panel-body">
@@ -65,8 +88,14 @@
             <div class="panel panel-primary">
             <div class="panel-heading">Dictionary</div>
             <div class="panel-body">
-                Get the selected Value here and Give the meaning and usage of the value
             </div>
+                <asp:Label ID="meaning" runat="server" Text="Meaning:" style="visibility:hidden"></asp:Label>
+                <br />
+                <asp:HyperLink ID="HyperLink1" runat="server">
+                <asp:Image ID="audio" runat="server" ImageUrl="pronounce.png" Height="20px" Width="20px" style="cursor: pointer; visibility:hidden;"/>
+                </asp:HyperLink>
+                <br />
+                <asp:Label ID="usage" runat="server" Text="Usage in Sentences:" style="visibility:hidden"></asp:Label>
             </div>
         </div>
         
