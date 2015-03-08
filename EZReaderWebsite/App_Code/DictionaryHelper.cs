@@ -57,7 +57,7 @@ public class DictionaryHelper
             model.Meaning = item1;
             XmlNodeList parentNode2 = xmlDoc.GetElementsByTagName("entry/sound");
             string item2 = xmlDoc.SelectSingleNode("//entry/sound/wav").InnerText;
-            model.AudioUrl = "http://media.merriam-webster.com/soundc11/h/" + item2;
+            model.AudioUrl = "http://media.merriam-webster.com/soundc11/" + item2[0] + "/" + item2;
 
             model.Word = word;
 

@@ -19,29 +19,40 @@
                     selection = document.selection.createRange();
                 }
                 var data = selection.toString();
+                if(data.length>1) {
+                    $.ajax({
+                        type: "GET",
+                        url: "AjaxEngine.aspx?word=" + data,
+                        success: function (msg) {
+                            var audio = $(msg).find("AudioUrl").text();
+                            var sentence = $(msg).find("SentenceUsage").text();
+                            var meaning = $(msg).find("Meaning").text();
+                            document.getElementById("audio").style.visibility = 'visible';
+                            document.getElementById("meaning").style.visibility = 'visible';
+                            document.getElementById("usage").style.visibility = 'visible';
+
+                            document.getElementById("usage").innerHTML = '<b>Use in Sentence:</b>' + sentence;
+                            document.getElementById("meaning").innerHTML = '<b><label style="font-size:50px;">' + data + '</label></b><br/><b>Meaning</b>' + meaning;
+                            document.getElementById("audio").textContent = audio;
+                        },
+                        error: function (msg) {
+                            document.getElementById("audio").style.visibility = 'hidden';
+                            document.getElementById("meaning").style.visibility = 'hidden';
+                            document.getElementById("usage").style.visibility = 'hidden';
+                        }
+                    });
+                }
+            });
+            $('#audio').bind('click', function (e) {
+                var url = document.getElementById("audio").textContent;
                 $.ajax({
                     type: "GET",
-                    url: "AjaxEngine.aspx?word=" + data,
+                    url: "Player.aspx?url=" + url,
                     success: function (msg) {
-                        var audio = $(msg).find("AudioUrl").text();
-                        var sentence = $(msg).find("SentenceUsage").text();
-                        var meaning = $(msg).find("Meaning").text();
-                        document.getElementById("audio").style.visibility = 'visible';
-                        document.getElementById("meaning").style.visibility = 'visible';
-                        document.getElementById("usage").style.visibility = 'visible';
-
-                        document.getElementById("usage").innerHTML = sentence;
-                        document.getElementById("meaning").innerHTML = meaning;
-                        document.getElementById("audio").textContent = audio;
+                        // alert(msg);
                     }
                 });
             });
-        });
-        $("#audio").click(function () {
-            var url = document.getElementById("audio").textContent;
-            alert(url);
-            var audio = new Audio(url);
-            audio.play();
         });
 
         function showMeaning(text) {
@@ -56,9 +67,14 @@
                     document.getElementById("meaning").style.visibility = 'visible';
                     document.getElementById("usage").style.visibility = 'visible';
 
-                    document.getElementById("usage").innerHTML = sentence;
-                    document.getElementById("meaning").innerHTML = meaning;
+                    document.getElementById("usage").innerHTML = '<b>Use in Sentence:</b>' + sentence;
+                    document.getElementById("meaning").innerHTML = '<b><label style="font-size:50px;">' + text + '</label></b><br/><b>Meaning</b>' + meaning;
                     document.getElementById("audio").textContent = audio;
+                },
+                error: function (msg) {
+                    document.getElementById("audio").style.visibility = 'hidden';
+                    document.getElementById("meaning").style.visibility = 'hidden';
+                    document.getElementById("usage").style.visibility = 'hidden';
                 }
             });
         }
