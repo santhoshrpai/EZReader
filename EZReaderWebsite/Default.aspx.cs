@@ -21,7 +21,7 @@ public partial class _Default : System.Web.UI.Page
         if (!IsPostBack)
         {
             //load data from pdf file.
-
+            Session["UserID"] = "1";
         }
     }
 
@@ -80,36 +80,40 @@ public partial class _Default : System.Web.UI.Page
         //string[] keywords = { "Application", "verify", "Software" };
         string[] keywords = DataLayer.GetKeywords(1, Server.MapPath("\\EZReader.accdb"));
         lblCurrentPage.Text = currentPage.ToString();
-
-        bool isKeyWordPresent = false;
-        foreach (string item in keywords)
+        if (keywords != null)
         {
-            if (data.Contains(item))
+            bool isKeyWordPresent = false;
+            foreach (string item in keywords)
             {
-                isKeyWordPresent = true;
-                break;
-            }
-        }
-        if (isKeyWordPresent)
-        {
-            string[] text = data.Split(' ');
-            for (int i = 0; i < text.Length; i++)
-            {
-                if (keywords.Contains(text[i].Replace("<br>", "")))
+                if (data.ToLower().Contains(item))
                 {
-                    result.InnerHtml += "<a href=\"#\">" + text[i] + "</a> ";
-                }
-                else
-                {
-                    result.InnerHtml += text[i] + " ";
+                    isKeyWordPresent = true;
+                    break;
                 }
             }
+            if (isKeyWordPresent)
+            {
+                string[] text = data.Split(' ');
+                for (int i = 0; i < text.Length; i++)
+                {
+                    if (keywords.Contains(text[i].Replace("<br>", "").ToLower()))
+                    {
+                        result.InnerHtml += "<a href=\"#\">" + text[i] + "</a> ";
+                    }
+                    else
+                    {
+                        result.InnerHtml += text[i] + " ";
+                    }
+                }
 
+            }
+            else
+            {
+                result.InnerHtml = data;
+            }
         }
         else
-        {
             result.InnerHtml = data;
-        }
 
         if (currentPage < Convert.ToInt32(Session["noOfPages"].ToString()))
             btnNext.Enabled = true;

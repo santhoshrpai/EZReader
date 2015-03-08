@@ -18,7 +18,7 @@ public class DataLayer
         OleDbConnection conn = GetConnection(path);
         string strAccessInsert = "insert into tbl_Keywords(Keyword,UserID) values(@keyword,@id)";
         OleDbCommand command = conn.CreateCommand();
-        command.Parameters.AddWithValue("keyword", keyword).DbType = DbType.String;
+        command.Parameters.AddWithValue("keyword", keyword.ToLower()).DbType = DbType.String;
         command.Parameters.AddWithValue("id", id).DbType = DbType.Int32;
         command.CommandText = strAccessInsert;
         command.Connection = conn;
