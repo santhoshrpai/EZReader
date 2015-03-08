@@ -82,9 +82,12 @@
     </script>
 </head>
 <body style="font-family:Tahoma;text-align:center">
-
+    
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+                    </asp:ScriptManager>
         <div style="float: left; width: 70%;">
-                <form id="form1" runat="server">
+                
                     <div class="panel panel-primary">
                     <div class="panel-heading">Oliver Twist</div>
                     <div class="jumbotron">
@@ -132,7 +135,7 @@
                     </div>
                     </div>
                     </div>
-                </form>
+                    
         </div>
         <div style="float: right; width: 30%;" >
             <div class="panel panel-primary">
@@ -160,6 +163,32 @@
                 <br />                
             </div>
         </div>
-        
+    <br /><br />
+
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+
+        <div style="float:right; width: 30%;" >
+            <div class="panel panel-primary">
+            <div class="panel-heading">Translate</div>
+            <div class="panel-body">
+                <asp:Label ID="Label5" runat="server" Font-Bold="True" Text="Choose your language"></asp:Label>
+                <br />
+                <asp:RadioButton ID="Spanish" runat="server" Text="Spanish" Checked="True" GroupName="lang" />
+                <asp:RadioButton ID="Italian" runat="server" Text="Italian" GroupName="lang" />
+                <asp:RadioButton ID="French" runat="server" Text="French" GroupName="lang" />
+                <br />
+                <asp:Button ID="btn_Translate" runat="server" OnClick="btn_Translate_Click" Text="Translate" />
+                <br />
+                
+                <asp:Label ID="Lblang" runat="server" Font-Size="30px" Font-Bold="True"></asp:Label>
+                
+            </div>
+                
+            </div>
+        </div>
+            </ContentTemplate>
+            </asp:UpdatePanel>
+      </form>  
 </body>
 </html>

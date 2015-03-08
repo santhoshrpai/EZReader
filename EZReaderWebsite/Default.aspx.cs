@@ -21,6 +21,7 @@ public partial class _Default : System.Web.UI.Page
         {
             //load data from pdf file.
             Session["UserID"] = "1";
+            Session["lookupWord"] = null;
             //string text = ExtractTextFromPdf(Server.MapPath("Oliver-Twist.pdf"));
             reader = new PdfReader(Server.MapPath("Oliver-Twist.pdf"));
             Session["document"] = reader;
@@ -218,5 +219,29 @@ public partial class _Default : System.Web.UI.Page
         currentPage = Convert.ToInt32(Session["noOfPages"].ToString());
         SetContent();
         //btnNext.Enabled = false;
+    }
+    protected void btn_Translate_Click(object sender, EventArgs e)
+    {
+        DictionaryHelper helper = new DictionaryHelper();
+        string lang = null;
+        if (Session["lookupWord"] != null && !string.IsNullOrEmpty(Session["lookupWord"].ToString()))
+        {
+            if (Spanish.Checked)
+            {
+                lang = "es";
+            }
+            else if (Italian.Checked)
+            {
+                lang = "it";
+            }
+            else if (French.Checked)
+            {
+                lang = "fr";
+            }
+            if (lang != null)
+            {
+                Lblang.Text =  helper.translationResponse(Session["lookupWord"].ToString(), lang);
+            }
+        }
     }
 }

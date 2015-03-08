@@ -17,6 +17,7 @@ public partial class AjaxEngine : System.Web.UI.Page
         DictionaryModel model = helper.parseDictionaryResult(arg1, arg2,lookupWord);
         DataLayer.AddKeyword(lookupWord, model.Meaning, Convert.ToInt32(Session["UserID"].ToString()), Server.MapPath("\\EZReader.accdb"));
         var stringwriter = new System.IO.StringWriter();
+        Session["lookupWord"] = lookupWord;
         var serializer = new XmlSerializer(typeof(DictionaryModel));
         serializer.Serialize(stringwriter, model);
         Response.Write(stringwriter.ToString());
